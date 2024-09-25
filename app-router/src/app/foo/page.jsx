@@ -1,14 +1,9 @@
-export default async function Page() {
-  let data = await fetch("https://api.vercel.app/blog");
-  let posts = await data.json();
+export default function Foo() {
   return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>
-          {post.title}
-          {post.date}
-        </li>
-      ))}
-    </ul>
+    <>
+      <h1>foo 1</h1>
+      <h1>foo 2</h1>
+      <h1>foo 3</h1>
+    </>
   );
 }
