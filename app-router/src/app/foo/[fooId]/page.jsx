@@ -1,8 +1,8 @@
-export default function foodId(props) {
+export default async function foodId(props) {
   console.log(props);
   return (
     <h1>
-      Foo {props.params.foodId}/ {props.searchParams.country}
+      Foo {props.params.foodId} / {props.searchParams.country}
     </h1>
   );
 }
