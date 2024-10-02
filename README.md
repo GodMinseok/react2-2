@@ -1,5 +1,90 @@
 # 201930112 서민석
 
+## 10월 2일 강의
+
+### page-router 생성 시
+
+- app routing (N/Y) - No
+
+- src -> 프로젝트를 할 때는 괜찮지만 안 쓰는게 좋음
+
+### 단일 동적 경로
+
+- 단일 동적 경로는 [] 안에 동적 값을 하나만 받는 라우트
+
+- 예를 들어, /pages/bar/[foo].jsx는 단일 동적 경로임 여기서 foo는 URL에서 동적으로 변하는 값
+
+- ```
+  // pages/bar/[foo].jsx
+  export default function FooPage({ params }) {
+    return <h1>{params.foo}</h1>;
+  }
+  ```
+
+  - /bar/123을 방문하면 123이 foo에 전달됨
+
+### 다중 동적 경로
+
+- 다중 동적 경로는 [...]을 사용해 여러 세그먼트를 배열로 처리하는 라우트
+
+- 예를 들어, /pages/bar/[...foo].jsx는 다중 동적 경로임 여기서 foo는 배열로 전달되며, 여러 경로를 동적으로 처리할 수 있음
+
+- ```
+  // pages/bar/[...foo].jsx
+  export default function FooPage({ params }) {
+    return <h1>{params.foo.join('/')}</h1>;
+  }
+
+  ```
+
+- /bar/a/b/c로 접속하면 ['a', 'b', 'c']가 foo에 전달됨
+
+### 선택적 동적 경로
+
+- 선택적 동적 경로는 [[...]]을 사용하여 경로 세그먼트가 없어도 접근 가능한 라우트
+
+- 예를 들어, /pages/bar/[[...foo]].jsx는 선택적 다중 동적 경로임 foo가 없어도 라우트에 접근할 수 있음
+
+- ```
+  // pages/bar/[[...foo]].jsx
+  export default function FooPage({ params }) {
+    return <h1>{params.foo ? params.foo.join('/') : 'Home'}</h1>;
+  }
+  ```
+
+- /bar/로 접속하면 Home이 출력되고, /bar/a/b로 접속하면 a/b가 출력됨
+
+### 동적 라우팅
+
+- 동적 라우팅은 중첩이 가능
+- 동적 라우팅은 경로의 일부가 변할 수 있도록 설정하는 방식임
+- 예를 들어, URL의 일부를 변수처럼 사용해 다른 데이터를 보여주게 됨
+- 동적 라우팅에서는 [] 또는 [[]]와 같은 구조를 사용
+
+- ```
+    export default function FooId(props) {
+    return (
+      <>
+        <h1>
+          Foo {props.params.fooId} {props.searchParams.country}
+        </h1>
+      </>
+    );
+  }
+  ```
+
+- URL - http://localhost:3001/posts/007?id=min&name=minseok
+- URL -
+  http://localhost:3001/blog01/1004?id=min&name=minseok
+
+### 정리
+
+- 동적 라우팅: 경로의 일부를 동적으로 처리하는 방식
+
+- 단일 동적 경로: 하나의 세그먼트만 동적으로 처리하는 경로 ([foo].jsx)
+- 다중 동적 경로: 여러 세그먼트를 배열로 처리하는 경로 ([...foo].jsx)
+- 선택적 동적 경로: 세그먼트가 없어도 접근 가능한 다중 동적 경로 ([[...foo]].jsx)
+
 ## 9월 25일 강의
 
 ### Next.js 기초와 내장 컴포넌트
