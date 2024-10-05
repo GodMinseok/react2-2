@@ -1,5 +1,79 @@
 # 201930112 서민석
 
+## 10월 4일 강의
+
+### Page Project Layout
+
+#### Page Project Layout - app
+
+- \_app.jsx는 서버에 요청할 때 가장 먼저 실행되는 컴포넌트
+- 페이지에 적용할 공통 레이아웃을 선언하는 곳
+- ```
+  import "@/styles/globals.css";
+
+  export default function App({ Component, pageprops}) {
+    return <Component{...pageProps}/>;
+  }
+  ```
+
+- Global CSS는 이곳에 추가됨
+- props 중 Component는 서버에 요청한 페이지
+- 데이터가 없다면 빈 객체({})를 반환함
+
+#### Page Project Layout - \_document
+
+- \_document.jsx는 \_app.jsx 다음에 실행됨
+- 각 페이지에서 공통적으로 사용될 html, head, body 안에 들어갈 내용을 선언
+- onClick 같은 이벤트나 CSS는 이곳에 선언하지 않음
+- 만일 로직이나 스타일이 필요하다면 \_app.jsx에 선언해야함
+- ```
+  import { HTML, Head, Main, NextScript} from "next/document";
+
+  export default function Document() {
+    return (
+      <Html lang="ko">
+      <Head>
+      <!-- 사용자 정의 메타 태그 -->
+      <meta name="description" content="커스텀 설명입니다.">
+
+      <!-- 외부 스크립트 추가 -->
+      <script src="..."></script>
+      </Head>
+      <body>
+      <Main/>
+      <NextScript/>
+      </body>
+      </Html>
+            )
+  }
+  ```
+
+### App Project Layout
+
+#### App Project Layout - layout.jsx
+
+#### Link vs. a vs. router.push
+
+#### App Project Layout - Linkcomponent
+
+- layout.jsx는 app 디렉토리 아래에 위치함
+- layout.jsx는 Page Project에서 사용하던 \_app.jsx와 \_document.jsx를 대체함
+- 이 파일은 삭제해도 프로젝트를 실행하면 자동으로 다시 생겨남
+- ```
+
+  ```
+
+#### App Project Layout - meta data
+
+#### 정적 자원 제공
+
+- 정적 자원은 이미지, 폰트, 아이콘, 컴파일한 CSS, js 등으로 /public 디렉토리 안에 저장함
+- 정적 자원 중 이미지 파일은 SEO에 많은 영향을 미침
+- 불러오는데 많은 시간이 걸리고, 불러온 후에도 이미지 주변의 레이아웃이 변경되는 등 UX 관점에서 좋지 않은 영향을 줌
+- 이를 누적 레이아웃 이동(CLS: Cumulative Layout Shift)이라고 함
+
+#### 자동 이미지 최적화
+
 ## 10월 2일 강의
 
 ### page-router 생성 시
