@@ -50,20 +50,11 @@
 
 ### App Project Layout
 
-#### App Project Layout - layout.jsx
-
-#### Link vs. a vs. router.push
-
 #### App Project Layout - Linkcomponent
 
 - layout.jsx는 app 디렉토리 아래에 위치함
 - layout.jsx는 Page Project에서 사용하던 \_app.jsx와 \_document.jsx를 대체함
 - 이 파일은 삭제해도 프로젝트를 실행하면 자동으로 다시 생겨남
-- ```
-
-  ```
-
-#### App Project Layout - meta data
 
 #### 정적 자원 제공
 
@@ -71,8 +62,6 @@
 - 정적 자원 중 이미지 파일은 SEO에 많은 영향을 미침
 - 불러오는데 많은 시간이 걸리고, 불러온 후에도 이미지 주변의 레이아웃이 변경되는 등 UX 관점에서 좋지 않은 영향을 줌
 - 이를 누적 레이아웃 이동(CLS: Cumulative Layout Shift)이라고 함
-
-#### 자동 이미지 최적화
 
 ## 10월 2일 강의
 
