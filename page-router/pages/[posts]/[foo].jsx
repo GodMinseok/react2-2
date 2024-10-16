@@ -13,3 +13,5 @@ export default function Foo() {
     </>
   );
 }
+
+// http://localhost:3000/posts/Foo?id=123&name=JohnDoe&posts=456
