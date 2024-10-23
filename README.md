@@ -1,5 +1,121 @@
 # 201930112 서민석
 
+## 10월 23일 강의 (중간 고사 이후)
+
+### 누적 레이아웃 이동 (CLS: Cumulative Layout Shift)
+
+- 정적 자원 중 이미지 파일은 SEO에 많은 영향을 미침
+
+- 다운로드 시간이 많이 걸리고, 렌더링 후에 레이아웃이 변경되는 등 UX에 영향을 미침
+
+- Image 컴포넌트를 사용하면 해결
+
+- lazy loading : 이미지 로드 시점을 필요할 때까지 지연시키는 기술
+
+- 이미지 사이즈 최적화로 사이즈를 1/10이하로 줄여줌
+
+- placeholder를 제공
+
+### Image Component
+
+#### local 방식
+
+- EX
+
+```jsx
+import Image from "next/image";
+import foo from "/public/images/leaf-6760484_1920.jpg";
+
+export default function About() {
+  return (
+    <>
+      <h1>About page</h1>
+      {/* 경로 방식 */}
+      <Image
+        src="/images/corn-9064747_640.jpg"
+        alt="옥수수"
+        width={400}
+        height={500}
+      />
+      <Image
+        src="/images/corn-9064747_640.jpg"
+        alt="옥수수"
+        width={400}
+        height={500}
+        layout="responsive"
+      />
+
+      {/* import 방식 */}
+      <Image src={foo} alt="단풍" width={400} height={500} />
+    </>
+  );
+}
+```
+
+- Image 컴포넌트 사용 시 주의 사항
+
+  - width, height는 필수 (layout="fill"을 사용 시에는 생략)
+
+  - layout="responsive" 는 브라우저 크기에 맞게 가변함
+
+### Remote 방식
+
+- Pixabay와 같은 외부 이미지를 사용하려면 next.config.mjs 설정이 필요함
+
+- 수정된 코드
+
+```mjs
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
+      },
+    ],
+  },
+};
+
+export default nextConfig;
+```
+
+- EX
+
+```jsx
+import Image from "next/image";
+
+export default function About() {
+  return (
+    <>
+      <h1>About page</h1>
+      {/* Remote 방식*/}
+      <Image
+        src="https://cdn.pixabay.com/photo/2023/11/03/12/22/cat-8579018_1280.jpg"
+        width={300}
+        height={500}
+        alt="고양이"
+      />
+    </>
+  );
+}
+```
+
+### 코드 구성과 데이터 불러오기
+
+- 프로젝트를 시작할 때 확장과 복잡도에 대비 해야함
+
+- 코드를 더 효율적으로 구성하기 위해 `아토믹 디자인 원칙`에 따라 디렉토리를 구성함
+
+  - atoms : 가장 기본적인 컴포넌트 관리
+
+  - molecules : atoms에 속한 컴포넌트 여러 개를 조합하여 복잡한 구조로 만든 컴포넌트 관리
+
+  - organisms : molecules와 atoms를 섞어서 더 복잡하게 만든 컴포넌트 관리
+
+  - templates : 위의 모든 컴포넌트를 어떻게 배치 결정해서 사용자가 접근할 수 있는 페이지
+
 ## 10월 4일 강의
 
 ### Page Project Layout
