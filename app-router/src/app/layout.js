@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./styles/globals.css";
+
 import RootHeader from "./components/RootHeader";
 import RootFooter from "./components/RootFooter";
 import NewBar from "./components/NewBar";
