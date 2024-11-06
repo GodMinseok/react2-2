@@ -1,5 +1,183 @@
 # 201930112 서민석
 
+## 10월 30일 강의
+
+### CSS와 내장 스타일링 메서드
+
+#### Styled JSX
+
+- Styled JSX는 CSS-in-JS라이브러리, 내장 모듈이기 때문에 설치가 필요없음
+- CSS 속성 지정을 위해 자바스크립트를 사용할 수 있는 라이브러리임
+
+```jsx
+"use client";
+
+export default function StyledJsx2() {
+  return (
+    <>
+      <button className="button">버튼</button>
+      <span>Span Tag</span>
+      <style jsx>
+        {`
+          span {
+            background-color: blue;
+            color: white;
+            font-size: 1rem;
+          }
+        `}
+      </style>
+    </>
+  );
+}
+```
+
+### CSS-in-JS의 단점
+
+- IDE나 코드 편집기 등 개발 도구에 대한 지원이 부족함
+- 문법 하이라이팅, 자동 완성, 린트(lint)기능을 제공 하지 않음
+- 코드 내에서 CSS에 대한 의존성이 점점 커지기 때문에 앱 번들도 커지고 느려짐
+
+### CSS Module
+
+- CSS-in-JS의 단점을 보완하기 위한 방법임
+
+- .module.css 로 끝나는 파일에서 CSS클래스를 가져와서 사용
+
+- 변환한 객체에서 모든 키는 클래스 이름을 의미함
+
+- 클래스들은 컴포넌트 스코프를 가짐
+
+- 생성된 HTML 태그를 보면 class 가 고유한 값을 가짐
+
+  ```jsx
+  /* styles/globals.css */
+
+  .foo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    grid-row-start: 2;
+    color: yellow;
+  }
+  ```
+
+  ```jsx
+  /* layout.js */
+
+  import "./styles/globals.css";
+  ```
+
+  ```jsx
+  /* page.js */
+
+  "use client";
+
+  export default function Root() {
+    return (
+      <div className="foo">
+        <h1>Root Page</h1>
+      </div>
+    );
+  }
+  ```
+
+- CSS Module 상속
+
+  ```jsx
+  /* styles/my.module.css */
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    grid-row-start: 2;
+    color: red;
+  }
+
+  .main1 {
+    composes: main;
+    color: #cacaff;
+  }
+  ```
+
+  ```jsx
+  /* page.js */
+
+  import styles from "./styles/my.module.css";
+
+  export default function Root() {
+    return (
+      <div className={styles.main1}>
+        <h1>Root Page</h1>
+      </div>
+    );
+  }
+  ```
+
+### SASS
+
+- Next에서 기본으로 지원하는 전 처리기
+
+- 단 패키지 설치가 필요함 ( npm install sass )
+
+- SASS 및 SCSS(Sassy CSS) 문법으로 CSS Module을 만들고 사용할 수 있음
+
+- styles/Home.module.css 파일 이름을 styles/Home.module.scss로 바꿔주면 됨
+
+  ```scss
+  // styles/foo.module.scss
+
+  $foo: red;
+
+  .bar {
+    font: 500;
+    color: aqua;
+  }
+  ```
+
+  ```jsx
+  import styles from "./styles/foo.module.scss";
+
+  export default function Root() {
+    return (
+      <>
+        <div className="foo">
+          <h1>Home_foo</h1>
+        </div>
+
+        <div className={styles.bar}>
+          <h1>Home_foo1</h1>
+        </div>
+      </>
+    );
+  }
+  ```
+
+## 10월 25일 강의
+
+npm i -g json-server  
+json-server --version
+
+Axios란?
+
+- Next.js에서 REST API를 다룰 떄는 보통 axios와 fetch 중 하나를 선택하는 경우가 많음
+
+[Axios]
+
+- 간편한 문법: 기본적으로 JSON 데이터를 자동으로 변환해주므로, res.data로 쉽게 접근할 수 있음
+- HTTP 요청 취소: 요청을 취소할 수 있는 기능이 내장되어 있음
+- 진보된 오류 처리: HTTP 오류 코드에 따라 에러를 더 쉽게 처리 가능
+
+[Fetch API]
+
+- 내장 API: 브라우저에 내장되어 있어 별도의 설치가 피료없음
+- Promise 기반: 비동기 작업을 처리하는데 익숙한 구조
+- 스트림 처리: 데이터를 스트리밍으로 처리할 수 있는 기능이 있어, 큰 파일을 처리하는데 유용함
+
 ## 10월 23일 강의 (중간 고사 이후)
 
 ### 누적 레이아웃 이동 (CLS: Cumulative Layout Shift)
