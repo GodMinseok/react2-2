@@ -1,5 +1,136 @@
 # 201930112 서민석
 
+## 11월 13일 강의
+
+### Props
+
+- 단방향
+
+- Next.js의 데이터 흐름은 단방향으로 이루어 짐
+
+- 즉, parents에서 child component의 방향으로 props의 흐름이 이루어짐
+
+- 계층 구조가 복잡해지면 Props Drilling 문제가 발생
+
+- Props Drilling은 여러 개의 component를 지나 props가 전달 되면서 발생하는 문제
+
+### Props Drilling의 문제
+
+1. 중간 컴포넌트에 불필요한 프로퍼티 전달
+
+2. 프로퍼티 데이터 형식 변경의 불편함
+
+3. 누락된 프로퍼티 인지의 어려움
+
+4. 프로퍼티 이름 변경 추적의 어려움
+
+- 코드의 가독성, 코드의 유지보수가 어려움
+
+### Context API
+
+- context는 UX 구축에 많이 사용되는 React의 기능
+
+- React는 16.3 버전부터 정식적으로 context api를 지원
+
+- 일반적으로 props는 부모에서 자식으로 전달되는 단방향 통신을 함
+
+- Context API는 특정 component가 props를 사용하지 않고, 하위 component를 포함한 모든 component에 데이터를 공유할 수 있는 기능을 제공
+
+- 즉, 전역으로 데이터를 사용할 수 있도록 해줌
+
+- Context API는 createContext, Provider, useContext 개념만 알면 적용이 가능
+
+| 특징             | Consumer                                                     | useContext                                                    |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------- |
+| 사용 방식        | 렌더 프로프 패턴을 사용 (Context.Consumer)                   | 훅을 사용 (useContext)                                        |
+| 컴포넌트 유형    | 클래스형 및 함수형 컴포넌트 모두 사용 가능                   | 함수형 컴포넌트에서만 사용 가능                               |
+| 코드 가독성      | 다소 복잡하고 중첩되는 구조가 될 수 있음                     | 코드가 간결하고 직관적                                        |
+| 컨텍스트 값 접근 | `Context.Consumer` 내부에서 콜백 함수로 값 접근              | `useContext(Context)`로 직접 값 접근                          |
+| 리렌더링         | 컨텍스트 값이 변경되면 Consumer가 포함된 컴포넌트만 리렌더링 | 컨텍스트 값이 변경되면 해당 훅을 사용하는 컴포넌트만 리렌더링 |
+
+### 예시 코드 (다크모드 / 라이트모드)
+
+- src/contexts/ThemeContext.jsx
+
+```jsx
+"use client";
+
+import { createContext, useEffect, useState } from "react";
+
+export const ThemeContext = createContext();
+
+export const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const initialTheme = theme === "light" ? "light" : "dark";
+    setTheme(initialTheme);
+    document.body.className = initialTheme;
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    document.body.className = newTheme;
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+```
+
+- src/components/ThemeToggleButton.jsx
+
+```jsx
+"use client";
+
+import { ThemeContext } from "@/contexts/ThemeContext";
+import { useContext } from "react";
+
+const ThemeToggleButton = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext); // ThemeContext로부터 값 가져오기
+
+  return (
+    <button onClick={toggleTheme}>
+      {theme === "light" ? "Dark Mode" : "Light Mode"}
+    </button>
+  );
+};
+
+export default ThemeToggleButton;
+```
+
+- src/app/layout.tsx
+
+```jsx
+import ThemeToggleButton from "@/components/ThemeToggleButton";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import "@/app/styles/global.css";
+
+/* ...생략 */
+
+export default function RootLayout(props: { children: React.ReactNode }) {
+  const { children } = props;
+  return (
+    <html
+      lang="ko"
+      suppressHydrationWarning
+      className={`${geistMono.variable} ${geistSans.variable}`}
+    >
+      <body>
+        <ThemeProvider>
+          <ThemeToggleButton />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
 ## 11월 6일 강의
 
 ### UI 라이브러리
