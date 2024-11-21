@@ -1,11 +1,11 @@
 import ComponentB from "./ComponentB";
 
-export default function ComponentA({ foo }) {
+export default function ComponentA({ user }) {
   return (
     <>
       <h1>ComponentA</h1>
-      <h2>ComponentA에서-{foo.name}</h2>
-      <ComponentB bar={foo} />
+      <h2>props-flow에서-{user.id}</h2>
+      <ComponentB user={user} />
     </>
   );
 }
