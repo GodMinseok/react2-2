@@ -30,7 +30,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    document.body.className = theme;
+    document.body.className = theme; // theme이 변경되면 body에 클래스 적용
   }, [theme]);
 
   return (
