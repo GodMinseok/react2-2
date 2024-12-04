@@ -1,6 +1,16 @@
-.layout {
+.name {
   font-size: 8px;
   color: aqua;
+}
+
+.no {
+  font-size: 12px;
+  color: blue;
+}
+
+.path {
+  font-size: 15px;
+  color: blueviolet;
 }
 
 /* about css */
