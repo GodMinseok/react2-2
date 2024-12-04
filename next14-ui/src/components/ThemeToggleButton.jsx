@@ -1,3 +1,5 @@
+"use client";
+
 import { ThemeContext } from "@emotion/react";
 import { useContext } from "react";
 

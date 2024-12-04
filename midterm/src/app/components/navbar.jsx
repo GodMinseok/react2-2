@@ -1,14 +1,13 @@
 import Link from "next/link";
 
-export default function navbar() {
+export default function Navbar() { // 함수 이름을 PascalCase로 변경
   return (
     <>
       <nav>
-        {/* 이동하는 링크 */}
         <Link href="/">HOME</Link>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
-        <Link href="/slug/1030">slug</Link>
+        <Link href="/slug/1030">Slug</Link>
       </nav>
     </>
   );
